@@ -66,12 +66,13 @@ height0, width0 = img.size
 
 im = img.crop((0, 0, 940, width0))
 pix = im.load()
-height, width = im.size
-m=[[0] * (height//94) for _ in range(width//17)]
-for i in range(0, height, 94):
-    for j in range(0,width, 17):
-        if i+94>=height or j + 17 >= width:
+width, height = im.size
+little_height=17
+m=[[0] * (width//94) for _ in range(height//little_height)]
+for i in range(0, width, 94):
+    for j in range(0,height, little_height):
+        if i+94>=width or j + little_height >= height:
             break
-        print(i//94,j//17, len(m), len(m[i//94]))
-        m[j//17][i//94]=best_shift(im,17,94,i,j,i+47, i+94, j)
-visualise_shifts(im,17,94, m).show()
+        print(i//94,j//little_height, len(m), len(m[i//94]))
+        m[j//little_height][i//94]=best_shift(im,little_height,94,i,j,i+47, i+94, j)
+visualise_shifts(im,little_height,94, m).show()

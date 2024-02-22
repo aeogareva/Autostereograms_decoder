@@ -7,7 +7,6 @@ m=94
 
 im = img.crop((0, 0, 940, width0))
 height, width = im.size
-im.show()
 pix = im.load()
 
 u = dict()
@@ -28,7 +27,7 @@ for i in range(height):
             yg=y[1]
             yb=y[2]
             pix[i,j]=(abs(xr-yr), abs(xg-yg), abs(xb-yb))
-# im.show()
+im.show()
 
           
 
