@@ -7,21 +7,21 @@ def get_key(d, value):
         
 im = Image.open("/home/anyka/Project/Horse.jpg")
 pix = im.load()
-u = dict()
-for m in range(85,101):
-    d=0
+num_common_pixels = dict()
+for period in range(85,101):
+    matches=0
     for i in range(1024):
         for j in range(867):
-          if i+m>1023:
+          if i+period>1023:
              break
           else: 
-             if pix[i,j]==pix[i+m,j]:
-                d+=1
-    u[m]=d
+             if pix[i,j]==pix[i+period,j]:
+                matches+=1
+    num_common_pixels[period]=matches
 
-for m in range(85,101):
-   if u[m]>n:
-      n=u[m]
+for period in range(85,101):
+   if num_common_pixels[period]>n:
+      n=num_common_pixels[period]
 ##h=max(u)
 ##s=get_key(u, h)
-print('Period:',get_key(u, n))        
+print('Period:',get_key(num_common_pixels, n))        
