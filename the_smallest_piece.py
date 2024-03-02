@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 from PIL import Image
 n=1
 def get_key(d, value):
@@ -22,6 +23,7 @@ def best_shift(img, w,h, x,y, xstart, xend):
     for maybe_x in range(xstart, xend + 1):
         d = num_common_pixels(img, w, h, x, y, maybe_x, y,)
         if d > max_d:
+            imgarr = np(img)
             max_d = d
         u[maybe_x, y] = d
     x2=get_key(u, max_d)
