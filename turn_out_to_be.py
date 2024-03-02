@@ -1,4 +1,7 @@
-from PIL import Image
+import os
+import io
+import requests
+from PIL import Image, ImageDraw
 n=1
 def get_key(d, value):
     for k, v in d.items():
@@ -29,13 +32,14 @@ def best_shift(img, w,h,x,y,xstart, xend, y2):
          
 def visualise_shifts(img,w,h, matrix_of_shifts):
     pix=img.load()
+    draw = ImageDraw.Draw(img)
     for j in range(len(matrix_of_shifts)):
         for i in range(len(matrix_of_shifts[j])):
             print(i,j, i*h, j*w, img.size, len(matrix_of_shifts), len(matrix_of_shifts[i]))
-            for e in range(h):
-                for p in range(w):
-                    color=matrix_of_shifts[j][i]%94
-                    pix[i*h+e,j*w+p]=(color, color,color)
+            color=matrix_of_shifts[j][i]%94
+            xy=[i*h, j*w, i*h+h, j*w+w]
+            draw.rectangle(xy, fill=(color,color,color), outline=None, width=1)
+            #        pix[i*h+e,j*w+p]=(color, color,color)
     print(matrix_of_shifts)
     return img
     
@@ -75,4 +79,6 @@ for i in range(0, width, 94):
             break
         print(i//94,j//little_height, len(m), len(m[i//94]))
         m[j//little_height][i//94]=best_shift(im,little_height,94,i,j,i+47, i+94, j)
-visualise_shifts(im,little_height,94, m).show()
+resulting_image = visualise_shifts(im,little_height,94, m)
+resulting_image.show()
+resulting_image.save('image.png') #ww, visualise_shifts(im,little_height,94, m), quality=85)}
