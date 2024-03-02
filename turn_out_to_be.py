@@ -1,3 +1,4 @@
+import numpy as np
 import os
 import io
 import requests
@@ -11,10 +12,13 @@ def get_key(d, value):
 def num_common_pixels(img, w, h, x1,y1,x2,y2,):
     pix=img.load()
     d=0
-    for i in range(h):
-      for j in range(w):
-         if pix[x1+i, y1+j]==pix[x2+i, y2+j]:
-            d+=1
+    im = img.crop((x1, y1, x1+h, y1+w))
+    im2= img.crop((x2, y2, x2+h, y2+w))
+    arr1=np.array(im)
+    arr2=np.array(im2)
+    G= (arr1 == arr2)
+    G=np.all(G, axis=2)
+    d=np.sum(G)
     return d
 
 def best_shift(img, w,h,x,y,xstart, xend, y2):
